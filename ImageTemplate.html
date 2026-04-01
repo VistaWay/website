@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html lang="en">
+<body style="background-color: papayawhip;"
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Apartment Photos</title>
+
+    <style>
+        body {
+            font-family: ;
+            margin: 0;
+            background: #f4f4f4;
+            text-align: center;
+        }
+
+        h1 {
+            padding: 20px;
+        }
+
+        .gallery {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 10px;
+            padding: 10px;
+        }
+
+        .gallery img {
+            width: 100%;
+            height: 200px;
+            object-fit: cover;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: transform 0.2s;
+        }
+
+        .gallery img:hover {
+            transform: scale(1.05);
+        }
+
+        /* Lightbox */
+        .lightbox {
+            display: none;
+            position: fixed;
+            z-index: 1000;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,0.9);
+            justify-content: center;
+            align-items: center;
+        }
+
+        .lightbox img {
+            max-width: 90%;
+            max-height: 80%;
+        }
+
+        .close, .prev, .next {
+            position: absolute;
+            color: white;
+            font-size: 40px;
+            cursor: pointer;
+            user-select: none;
+        }
+
+        .close {
+            top: 20px;
+            right: 40px;
+        }
+
+        .prev {
+            left: 20px;
+            top: 50%;
+            transform: translateY(-50%);
+        }
+
+        .next {
+            right: 20px;
+            top: 50%;
+            transform: translateY(-50%);
+        }
+    </style>
+</head>
+<hr>
+<table cellspacing="5" cellpadding="5">
+  <tr>
+        <td><a href="index.html"> Home</a></td>
+        <td><a href="vista-way-photos.html">Pictures</a></td>
+        <td><a href="Contact.html"> Contact</a></td>
+    </tr>
+</table>
+<hr>
+<body>
+
+    <h1>Apartment Photos</h1>
+
+    <div class="gallery">
+        <!-- Just add images like this -->
+        <img src="images\1.jpg  " alt="">
+        <img src="images\3.jpg" alt="">
+        <img src="images\4.jpg" alt="Vista Way kitchen"
+        <img src="images\5.jpg" alt="Vista Way Porch"
+        <img src="images\11.jpg" alt="">
+        <img src="images\71.jpg" alt="Vista Way Bedroom">
+        <img src="images\vista_way.jpg" alt="Vista Way apartment building 30">
+        <img src="images\9.jpg" alt="">
+        <img src="images\12.jpg" alt="Vista Way apartments outside">
+    </div>
+
+    <!-- Lightbox -->
+    <div id="lightbox" class="lightbox">
+        <span class="close">&times;</span>
+        <span class="prev">&#10094;</span>
+        <img id="lightbox-img">
+        <span class="next">&#10095;</span>
+    </div>
+
+    <script>
+        const galleryImages = document.querySelectorAll(".gallery img");
+        const lightbox = document.getElementById("lightbox");
+        const lightboxImg = document.getElementById("lightbox-img");
+        const closeBtn = document.querySelector(".close");
+        const prevBtn = document.querySelector(".prev");
+        const nextBtn = document.querySelector(".next");
+
+        let currentIndex = 0;
+
+        // Open lightbox
+        galleryImages.forEach((img, index) => {
+            img.addEventListener("click", () => {
+                currentIndex = index;
+                showImage();
+                lightbox.style.display = "flex";
+            });
+        });
+
+        function showImage() {
+            lightboxImg.src = galleryImages[currentIndex].src;
+        }
+
+        // Controls
+        closeBtn.onclick = () => lightbox.style.display = "none";
+
+        prevBtn.onclick = () => {
+            currentIndex = (currentIndex - 1 + galleryImages.length) % galleryImages.length;
+            showImage();
+        };
+
+        nextBtn.onclick = () => {
+            currentIndex = (currentIndex + 1) % galleryImages.length;
+            showImage();
+        };
+
+        // Keyboard support
+        document.addEventListener("keydown", (e) => {
+            if (lightbox.style.display === "flex") {
+                if (e.key === "ArrowRight") nextBtn.onclick();
+                if (e.key === "ArrowLeft") prevBtn.onclick();
+                if (e.key === "Escape") closeBtn.onclick();
+            }
+        });
+
+        // Click outside image to close
+        lightbox.addEventListener("click", (e) => {
+            if (e.target === lightbox) closeBtn.onclick();
+        });
+    </script>
+
+</body>
+</html>
