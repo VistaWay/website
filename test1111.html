@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+<body style="background-color: papayawhip;"
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My Photo Gallery</title>
+
+    <style>
+        body {
+            font-family: ;
+            margin: 0;
+            background: #f4f4f4;
+            text-align: center;
+        }
+
+        h1 {
+            padding: 20px;
+        }
+
+        .gallery {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 10px;
+            padding: 10px;
+        }
+
+        .gallery img {
+            width: 100%;
+            height: 200px;
+            object-fit: cover;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: transform 0.2s;
+        }
+
+        .gallery img:hover {
+            transform: scale(1.05);
+        }
+
+        /* Lightbox */
+        .lightbox {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,0.9);
+            justify-content: center;
+            align-items: center;
+        }
+
+        .lightbox img {
+            max-width: 90%;
+            max-height: 90%;
+        }
+    </style>
+</head>
+<body>
+
+    <h1>My Photo Gallery</h1>
+
+    <div class="gallery">
+        <!-- Add images here -->
+        <img src="images/324.jpg" alt="">
+        <img src="images/325.jpg" alt="Vista Way party">
+        <img src="images/326.jpg" alt="">
+        <img src=""images/327.jpg" alt="">
+        <img src="images/353.jpg" alt="">
+        <img src="images/328.jpg" alt="Vista Way apartments party">
+
+    </div>
+
+    <!-- Lightbox -->
+    <div id="lightbox" class="lightbox" onclick="closeLightbox()">
+        <img id="lightbox-img">
+    </div>
+
+    <script>
+        function openLightbox(src) {
+            document.getElementById("lightbox").style.display = "flex";
+            document.getElementById("lightbox-img").src = src;
+        }
+
+        function closeLightbox() {
+            document.getElementById("lightbox").style.display = "none";
+        }
+    </script>
+
+</body>
+</html>
